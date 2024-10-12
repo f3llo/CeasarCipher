@@ -10,7 +10,6 @@ def check_isbn(isbn):
             counter += int(isbn[i]) * multiply_factor
             multiply_factor -= 1
 
-
     else:
         for i in range (0, len(isbn)): 
             counter += int(isbn[i]) * multiply_factor

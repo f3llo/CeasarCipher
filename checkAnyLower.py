@@ -7,5 +7,6 @@ def check_any_lowercase(string):
             return True
     return False
 
+
 print(check_any_lowercase(stringA))
 print(check_any_lowercase(stringB))
