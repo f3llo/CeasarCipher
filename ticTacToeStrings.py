@@ -1,23 +1,19 @@
 import os
 def print_field(field): 
-    os.system("cls")
-    for i in range(0, len(field), 3): print(field[i], field[i+1], field[i+2], "\n")
-
-def check_win(field): #not the most elegant solution PEP 8 violation
-    if (field[0] == field[4] == field[8] or field[2] == field[4] == field[6]) and field[4] != "0": return True
-    if ((field[0] == field[1] == field[2] or field[3] == field[4] == field[5] or field[6] == field[7] == field[8]) != False) and field[0] != "0" or field[3] != "0" or field[6] != "0": return True #fix
-    if ((field[0] == field[3] == field[6] or field[1] == field[4] == field[7] or field[2] == field[5] == field[8]) != False) and field[0] != "0" or field[1] != "0" or field[2] != "0": return True
-    return False
-
-def place_field(field, i, t):
-    field[i] = t if field[i] == "0" or field[i] == "X" or field[i] == "O" else print("Non-Zero field: already occupied!")
+    os.system("clear")
+    for i in range(0, len(field), 3): print(field[i], field[i+1], field[i+2], "\n");
+def check_win(field): #probably the most elegant solution I can find -> better than if statements 
+    line = ''.join(field)
+    win_conditions = [line[0:3], line[3:6], line[6:9], line[0::3], line[1::3], line[2::3], line[0] + line[4] + line[8], line[2] + line[4] + line[6]]
+    return any(winner in ['XXX', 'OOO'] for winner in win_conditions)
+def place_field(field, i, t): #add mechanic that if you miss you place randomly
+    field[i] = t if field[i] == "0" else place_field(field, int(input(f"Enter move position ({t}): ")), t, counter)
     print_field(field)
-    return check_win(field)
-
-field, win = ["0"] * 9, False
-print(print_field(field), "\n", "Place values by entering an index. Positions are indexed 1-9 where top left is 1 and bottom right is 9.")
-while win != True:
-    win = place_field(field, int(input("Enter move position (X): "))-1, "X")
-    if win == True: break
-    win = place_field(field, int(input("Enter move position (O): "))-1, "O")
-print("You Won!")
+counter, win, field = 0, False, ["0"] * 9
+print_field(field)
+print("\n Place values by index. Positions indexed 1-9 where top left is 1 and bottom right is 9.")
+while check_win(field) == False:
+    place_field(field, int(input("Enter move position (X): "))-1, "X"); counter += 1
+    if check_win(field) == True or counter == 9: break
+    place_field(field, int(input("Enter move position (O): "))-1, "O"); counter += 1
+print("Tie") if counter == 9 else print("You Won!")

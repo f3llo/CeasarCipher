@@ -98,7 +98,7 @@ def decipher(st, key):
 
 running = True
 while running:
-    os.system("cls") #change to clear for osX/linux!
+    os.system("clear") #change to clear for osX/linux!
 
     print("""
         Please select operation:
