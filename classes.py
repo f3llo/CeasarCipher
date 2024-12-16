@@ -14,4 +14,11 @@ loop j from 0 to n-1
     A[i] = OPS.pop()
 OUTPUT A
 
+
+POINTS QUESTION
+
+HW
+
 '''
+
+
